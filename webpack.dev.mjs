@@ -1,3 +1,4 @@
+import "dotenv/config";
 import path from "path";
 import ReactRefreshTypeScript from "react-refresh-typescript";
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
@@ -68,9 +69,12 @@ const Config = {
 
     // allowedHosts: ["myspa.example"],
     host: "myspa.example",
-    https: {
-      key: fs.readFileSync("./mySpa.example-key.pem"),
-      cert: fs.readFileSync("./mySpa.example.pem"),
+    server: {
+      type: "https",
+      options: {
+        key: fs.readFileSync("./mySpa.example-key.pem"),
+        cert: fs.readFileSync("./mySpa.example.pem"),
+      },
     },
     port: desiredPort,
     hot: "only",
