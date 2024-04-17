@@ -3,6 +3,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 // import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import { fileURLToPath } from "url";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const Config = {

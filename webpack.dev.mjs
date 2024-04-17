@@ -6,9 +6,13 @@ import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import { fileURLToPath } from "url";
 import fs from "fs";
+import webpack from "webpack";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const desiredPort = process.env.PORT || 3002;
+
+const port = process.env.PORT || 3002;
+const connectionProtocol = process.env.CONN_PROTOCOL;
+const host = process.env.DOMAIN;
 
 const Config = {
   entry: path.resolve(process.cwd(), "./src/index.tsx"),
@@ -68,19 +72,30 @@ const Config = {
     // },
 
     // allowedHosts: ["myspa.example"],
-    host: "myspa.example",
+    host,
     server: {
-      type: "https",
-      options: {
-        key: fs.readFileSync("./mySpa.example-key.pem"),
-        cert: fs.readFileSync("./mySpa.example.pem"),
-      },
+      type: connectionProtocol || "http",
+      options: connectionProtocol
+        ? {
+            key: fs.readFileSync("./mySpa.example-key.pem"),
+            cert: fs.readFileSync("./mySpa.example.pem"),
+          }
+        : {},
     },
-    port: desiredPort,
+    port,
     hot: "only",
     historyApiFallback: true,
   },
   plugins: [
+    new webpack.DefinePlugin({
+      "process.env.NODE_ENV": JSON.stringify(
+        process.env.NODE_ENV || "development",
+      ),
+      "process.env.DOMAIN": JSON.stringify(process.env.DOMAIN),
+      "process.env.CONN_PROTOCOL": JSON.stringify(process.env.CONN_PROTOCOL),
+      "process.env.API_PORT": JSON.stringify(process.env.API_PORT),
+      "process.env.API_DOMAIN": JSON.stringify(process.env.API_DOMAIN),
+    }),
     new ReactRefreshWebpackPlugin(),
     new ForkTsCheckerWebpackPlugin(),
     new HtmlWebpackPlugin({

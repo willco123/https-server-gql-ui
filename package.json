@@ -4,9 +4,9 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "start": "cross-env NODE_EXTRA_CA_CERTS=myRootCa --mode development --config webpack.dev.mjs",
+    "start": "webpack serve --config webpack.dev.mjs ",
     "test": "Jest --runInBand --watchAll --verbose --coverage",
-    "build": "cross-env NODE_ENV=production webpack --mode production --config webpack.prod.mjs",
+    "build": "cross-env NODE_ENV=production webpack production --config webpack.prod.mjs",
     "staticserv": "npx http-server ./dist"
   },
   "overrides": {
@@ -51,7 +51,9 @@
     "webpack-dev-server": "^5.0.2"
   },
   "dependencies": {
+    "@apollo/client": "^3.9.11",
     "dotenv": "^16.4.5",
+    "graphql": "^16.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-refresh": "^0.14.0",
