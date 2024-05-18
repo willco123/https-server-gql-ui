@@ -13,6 +13,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = process.env.PORT || 3002;
 const connectionProtocol = process.env.CONN_PROTOCOL;
 const host = process.env.DOMAIN;
+const skipTS = process.env.SKIP_TS;
 
 const Config = {
   entry: path.resolve(process.cwd(), "./src/index.tsx"),
@@ -49,7 +50,7 @@ const Config = {
                 decoratorMetadata: true,
                 react: {
                   runtime: "automatic",
-                  refresh: true,
+                  // refresh: true,
                 },
               },
             },
@@ -90,7 +91,7 @@ const Config = {
     },
 
     alias: {
-      "@config": path.join(__dirname, "./src/config.ts"),
+      "@config": path.join(__dirname, "./src/config"),
     },
   },
   output: {
@@ -114,13 +115,12 @@ const Config = {
         : {},
     },
     port,
-    hot: "only",
     historyApiFallback: true,
   },
   plugins: [
     new Dotenv(),
     new ReactRefreshWebpackPlugin(),
-    new ForkTsCheckerWebpackPlugin(),
+    skipTS !== "enabled" && new ForkTsCheckerWebpackPlugin(),
     new HtmlWebpackPlugin({
       inject: true,
       template: path.resolve("./public/index.html"),

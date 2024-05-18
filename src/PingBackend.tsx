@@ -2,13 +2,19 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { GET_HELLO } from "./queries.js";
 
-const ExampleComponent = () => {
-  const { loading, error, data } = useQuery(GET_HELLO);
+const PingBackend = () => {
+  // const { loading, error, data } = useQuery(GET_HELLO);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error.message}</p>;
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>{error.message}</p>;
+  const data = 123;
 
-  return <div>{data}</div>;
+  return (
+    <>
+      <div>hea</div>
+      <div>{data}</div>
+    </>
+  );
 };
 
-export default ExampleComponent;
+export default PingBackend;

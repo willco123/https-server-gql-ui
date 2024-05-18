@@ -19,7 +19,7 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "paths": {
-      "@config": ["./src/config.js"]
+      "@config": ["./src/config"]
     }
   },
   "compileOnSave": true,
