@@ -1,10 +1,8 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-
-const connectionProtocol = process.env.CONN_PROTOCOL;
-console.log("connectionProtocol :>> ", connectionProtocol);
+import { connectionProtocol, apiDomain, apiPort, apiEndPoint } from "@config";
 
 const client = new ApolloClient({
-  uri: "http://localhost:3090/graphql", // your GraphQL server endpoint
+  uri: `${connectionProtocol}://${apiDomain}:${apiPort}/${apiEndPoint}`,
   cache: new InMemoryCache(),
 });
 

@@ -1,7 +1,6 @@
-// ExampleComponent.js
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { GET_HELLO } from "./queries.js"; // Define your GraphQL queries
+import { GET_HELLO } from "./queries.js";
 
 const ExampleComponent = () => {
   const { loading, error, data } = useQuery(GET_HELLO);

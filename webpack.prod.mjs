@@ -30,10 +30,35 @@ const Config = {
           },
         ],
       },
+      // {
+      //   test: /\.(ts|tsx)$/,
+      //   exclude: /(node_modules|bower_components)/,
+      //   loader: "ts-loader",
+      // },
       {
-        test: /\.(ts|tsx)$/,
+        test: /\.(j|t)sx?$/,
         exclude: /(node_modules|bower_components)/,
-        loader: "ts-loader",
+        use: {
+          loader: "swc-loader",
+          options: {
+            env: { coreJs: 3, mode: "usage" },
+            jsc: {
+              parser: {
+                syntax: "typescript",
+                tsx: true,
+                dynamicImport: true,
+                decorators: true,
+              },
+              transform: {
+                decoratorMetadata: true,
+                react: {
+                  runtime: "automatic",
+                },
+              },
+            },
+          },
+        },
+        include: /src/,
       },
     ],
   },
@@ -72,9 +97,9 @@ const Config = {
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.resolve("./publicProd/index.html"),
+      template: path.resolve("./public/index.html"),
       publicPath: "",
-      favicon: path.resolve("./publicProd/favicon.ico"),
+      favicon: path.resolve("./public/favicon.ico"),
       chunks: ["vendors", "main"],
       chunksSortMode: "manual",
     }),

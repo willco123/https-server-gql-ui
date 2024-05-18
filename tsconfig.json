@@ -12,14 +12,15 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "strict": true,
     "strictNullChecks": true,
     "noFallthroughCasesInSwitch": true,
-    "skipLibCheck": true
-  },
-  "ts-node": {
-    "esm": true,
-    "files": true
+    "skipLibCheck": true,
+    "paths": {
+      "@config": ["./src/config.js"]
+    }
   },
   "compileOnSave": true,
   "include": ["src/**/*"],

@@ -7,6 +7,7 @@
     "start": "webpack serve --config webpack.dev.mjs ",
     "test": "Jest --runInBand --watchAll --verbose --coverage",
     "build": "cross-env NODE_ENV=production webpack production --config webpack.prod.mjs",
+    "build:clean": "rimram ./dist && npm run build",
     "staticserv": "npx http-server ./dist"
   },
   "overrides": {
@@ -29,6 +30,7 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.10.0",
     "debug": "^4.3.4",
+    "dotenv-webpack": "^8.1.0",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.33.2",
     "file-loader": "^6.2.0",
@@ -40,9 +42,10 @@
     "jest-transform-stub": "^2.0.0",
     "mini-css-extract-plugin": "^2.8.1",
     "react-refresh-typescript": "^2.0.9",
+    "rimraf": "^5.0.7",
+    "swc-loader": "^0.2.6",
     "ts-jest": "^29.1.2",
     "ts-loader": "^9.5.1",
-    "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
     "typescript-plugin-css-modules": "^5.1.0",
     "webpack": "^5.90.3",
@@ -52,11 +55,12 @@
   },
   "dependencies": {
     "@apollo/client": "^3.9.11",
+    "@testing-library/react": "^15.0.7",
     "dotenv": "^16.4.5",
     "graphql": "^16.8.1",
+    "http-server": "^14.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-refresh": "^0.14.0",
     "react-router-dom": "^6.22.2"
   },
   "type": "module"

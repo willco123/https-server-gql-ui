@@ -4,9 +4,9 @@ import ReactRefreshTypeScript from "react-refresh-typescript";
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import Dotenv from "dotenv-webpack";
 import { fileURLToPath } from "url";
 import fs from "fs";
-import webpack from "webpack";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -31,23 +31,50 @@ const Config = {
         ],
       },
       {
-        test: /\.(ts|tsx)$/,
+        test: /\.(j|t)sx?$/,
         exclude: /(node_modules|bower_components)/,
-        loader: "ts-loader",
-        // options: {},
+        use: {
+          loader: "swc-loader",
+          options: {
+            env: { coreJs: 3, mode: "usage" },
+            jsc: {
+              parser: {
+                syntax: "typescript",
+                tsx: true,
+                dynamicImport: true,
+                decorators: true,
+              },
+              loose: true,
+              transform: {
+                decoratorMetadata: true,
+                react: {
+                  runtime: "automatic",
+                  refresh: true,
+                },
+              },
+            },
+          },
+        },
+        include: /src/,
       },
+      // {
+      //   test: /\.(ts|tsx)$/,
+      //   exclude: /(node_modules|bower_components)/,
+      //   loader: "ts-loader",
+      //   // options: {},
+      // },
       {
         test: /\.s[ac]ss$/i,
         use: [
-          {
-            loader: "ts-loader",
-            options: {
-              getCustomTransformers: () => ({
-                before: [ReactRefreshTypeScript()].filter(Boolean),
-              }),
-              // transpileOnly: isDevelopment,
-            },
-          },
+          // {
+          //   loader: "ts-loader",
+          //   options: {
+          //     getCustomTransformers: () => ({
+          //       before: [ReactRefreshTypeScript()].filter(Boolean),
+          //     }),
+          //     // transpileOnly: isDevelopment,
+          //   },
+          // },
           "style-loader",
           "css-loader",
         ],
@@ -60,6 +87,10 @@ const Config = {
     extensionAlias: {
       ".js": [".tsx", ".ts", ".js"],
       ".mjs": [".mts", ".mjs"],
+    },
+
+    alias: {
+      "@config": path.join(__dirname, "./src/config.ts"),
     },
   },
   output: {
@@ -87,15 +118,7 @@ const Config = {
     historyApiFallback: true,
   },
   plugins: [
-    new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify(
-        process.env.NODE_ENV || "development",
-      ),
-      "process.env.DOMAIN": JSON.stringify(process.env.DOMAIN),
-      "process.env.CONN_PROTOCOL": JSON.stringify(process.env.CONN_PROTOCOL),
-      "process.env.API_PORT": JSON.stringify(process.env.API_PORT),
-      "process.env.API_DOMAIN": JSON.stringify(process.env.API_DOMAIN),
-    }),
+    new Dotenv(),
     new ReactRefreshWebpackPlugin(),
     new ForkTsCheckerWebpackPlugin(),
     new HtmlWebpackPlugin({
