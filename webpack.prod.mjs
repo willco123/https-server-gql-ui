@@ -32,12 +32,12 @@ const Config = {
       },
       // {
       //   test: /\.(ts|tsx)$/,
-      //   exclude: /(node_modules|bower_components)/,
+      //   exclude: /(node_modules)/,
       //   loader: "ts-loader",
       // },
       {
         test: /\.(j|t)sx?$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /(node_modules)/,
         use: {
           loader: "swc-loader",
           options: {

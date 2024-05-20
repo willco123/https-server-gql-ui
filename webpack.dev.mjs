@@ -33,7 +33,7 @@ const Config = {
       },
       {
         test: /\.(j|t)sx?$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /(node_modules)/,
         use: {
           loader: "swc-loader",
           options: {
@@ -60,7 +60,7 @@ const Config = {
       },
       // {
       //   test: /\.(ts|tsx)$/,
-      //   exclude: /(node_modules|bower_components)/,
+      //   exclude: /(node_modules)/,
       //   loader: "ts-loader",
       //   // options: {},
       // },
@@ -103,7 +103,7 @@ const Config = {
     //   directory: path.join(__dirname, "public/"),
     // },
 
-    // allowedHosts: ["myspa.example"],
+    allowedHosts: ["myspa.example"],
     host,
     server: {
       type: connectionProtocol || "http",

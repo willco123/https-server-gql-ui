@@ -5,8 +5,7 @@ import PingBackend from "./PingBackend";
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element="sssss" />
-      <Route path="/test" element={<PingBackend />} />
+      <Route path="/" element={<PingBackend />} />
     </Routes>
   );
 }

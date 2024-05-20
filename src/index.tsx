@@ -14,6 +14,5 @@ root.render(
         <App />
       </BrowserRouter>
     </ApolloProvider>
-    ,
   </React.StrictMode>,
 );

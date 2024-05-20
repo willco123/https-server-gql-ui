@@ -5,5 +5,4 @@ const client = new ApolloClient({
   uri: `${connectionProtocol}://${apiDomain}:${apiPort}/${apiEndPoint}`,
   cache: new InMemoryCache(),
 });
-
 export default client;

@@ -1,18 +1,22 @@
-import React from "react";
-import { useQuery } from "@apollo/client";
+import React, { useState } from "react";
+import { useLazyQuery } from "@apollo/client";
 import { GET_HELLO } from "./queries.js";
 
 const PingBackend = () => {
-  // const { loading, error, data } = useQuery(GET_HELLO);
-
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>{error.message}</p>;
-  const data = 123;
+  const [data, setData] = useState<String>();
+  const [ping] = useLazyQuery(GET_HELLO, {
+    onCompleted: (res) => {
+      setData(res.hello);
+    },
+    onError: (err) => {
+      setData(err.message);
+    },
+  });
 
   return (
     <>
-      <div>hea</div>
       <div>{data}</div>
+      <button onClick={() => ping()}>Ping</button>
     </>
   );
 };
